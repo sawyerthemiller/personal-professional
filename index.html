@@ -6,9 +6,20 @@
 <title>Sawyer A Miller</title>
 <style>
 
+.project-lang {
+  display: block;          /* ensures it sits on its own line */
+  width: 100%;             /* makes it take the full project width */
+  margin-top: 3px;         /* less spacing so it’s tighter */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.75rem;      /* smaller than normal text */
+  text-align: center;      /* centers under the button */
+  color: #555;             /* optional: softer color so it’s not too loud */
+}
+
 .small-img {
-  width: 100px;
-  height: 150px;
+  width: 150px;
+  height: 200px;
   object-fit: cover;   /* crop if not exact ratio */
   border-radius: 8px;  /* round the corners, fits the theme a bit better */
 }
@@ -30,7 +41,7 @@
 
 .project {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;   /* align children to the left */
   align-items: center;
   padding: 14px 18px;
   border-bottom: 1px solid rgba(255,255,255,0.15);
@@ -43,6 +54,15 @@
 .project-info {
   display: flex;
   flex-direction: column;
+  flex: 1;   /* take up all remaining space, pushes actions to the right */
+}
+
+.project-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* center button + language together */
+  margin-left: auto;     /* push this block to the right */
+  min-width: 120px;      /* ensures consistent alignment across projects */
 }
 
 .project-title {
@@ -221,24 +241,30 @@ main {
     <button class="close-btn" id="closeProjects">&times;</button>
     <h2 style="margin-left: 20px;">My Non GitHub Projects</h2>
 
-    <!-- Project A -->
+      <!-- Project A -->
     <div class="project">
       <div class="project-info">
-        <div class="project-title">Windows Power Plan Manager ‍ - ‍ (powershell)</div>
+        <div class="project-title">Windows Power Plan Manager</div>
         <div class="project-sub">Provides a GUI to manage and delete Windows power plans</div>
       </div>
-      <button class="get-btn unav">In Progress</button>
+      <div class="project-actions">
+        <button class="get-btn unav">In Progress</button>
+        <div class="project-lang">POWERSHELL</div>
+      </div>
     </div>
 
-    <!-- Project B -->
+      <!-- Project B -->
     <div class="project">
       <div class="project-info">
-        <div class="project-title">Julius ‍ - ‍ (python)</div>
+        <div class="project-title">Julius</div>
         <div class="project-sub">Brute force, encode, or decode Caesar cypher strings</div>
       </div>
-      <a href="https://drive.google.com/file/d/1hbq_63D5u1eHFZoBq24UzaMR_FU_fxaK/view?usp=sharing" target="_blank">
-        <button class="get-btn">Get</button>
-      </a>
+      <div class="project-actions">
+        <a href="https://drive.google.com/file/d/1hbq_63D5u1eHFZoBq24UzaMR_FU_fxaK/view?usp=sharing" target="_blank">
+          <button class="get-btn">Get</button>
+        </a>
+        <div class="project-lang">PYTHON</div>
+      </div>
     </div>
 
   </div>
