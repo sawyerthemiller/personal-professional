@@ -278,6 +278,18 @@ main {
   </div>
 </div>
 
+<!-- QR Code Modal -->
+<div id="qrModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeQR">&times;</button>
+    <h2>Scan Me</h2>
+    <img src="https://i.ibb.co/Y4jwz8x5/frame.jpg" 
+         alt="QR Code" 
+         style="display:block;margin:20px auto;max-width:250px;width:100%;border-radius:8px;">
+  </div>
+</div>
+
+
 <body>
   <header>
     <div class="day-pill" id="dayName">Day</div>
@@ -336,6 +348,26 @@ main {
       modal.style.display = 'none';
     }
   });
+
+  // QR code modal logic
+  const profileImg = document.querySelector('.small-img');
+  const qrModal = document.getElementById('qrModal');
+  const closeQR = document.getElementById('closeQR');
+
+  profileImg.addEventListener('click', function() {
+    qrModal.style.display = 'flex';
+  });
+
+  closeQR.addEventListener('click', function() {
+    qrModal.style.display = 'none';
+  });
+
+  qrModal.addEventListener('click', function(e) {
+    if (e.target === qrModal) {
+      qrModal.style.display = 'none';
+    }
+  });
+
 </script>
 
 </script>
