@@ -1,246 +1,11 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Sawyer A Miller</title>
-<style>
-
-.project-lang {
-  display: block;          /* ensures it sits on its own line */
-  width: 100%;             /* makes it take the full project width */
-  margin-top: 3px;         /* less spacing so it’s tighter */
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.75rem;      /* smaller than normal text */
-  text-align: center;      /* centers under the button */
-  color: #555;             /* optional: softer color so it’s not too loud */
-}
-
-.small-img {
-  width: 150px;
-  height: 200px;
-  object-fit: cover;   /* crop if not exact ratio */
-  border-radius: 8px;  /* round the corners, fits the theme a bit better */
-  position: relative;
-  border: 2px solid transparent;
-  transition: transform 0.3s ease, border 0.3s ease;
-}
-
-.small-img:hover {
-  border: 2px solid white;
-  transform: scale(1.05);
-}
-
-/* Grayed out unavailable project */
-.project.unav {
-  opacity: 0.5;
-  pointer-events: none; /* disables clicks inside */
-}
-
-.get-btn.unav {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: #bbb;
-  cursor: not-allowed;
-  pointer-events: none;
-  transform: none;
-}
-
-.project {
-  display: flex;
-  justify-content: flex-start;   /* align children to the left */
-  align-items: center;
-  padding: 14px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-}
-
-.project:last-child {
-  border-bottom: none;
-}
-
-.project-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1;   /* take up all remaining space, pushes actions to the right */
-}
-
-.project-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;   /* center button + language together */
-  margin-left: auto;     /* push this block to the right */
-  min-width: 120px;      /* ensures consistent alignment across projects */
-}
-
-.project-title {
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.project-sub {
-  font-size: 0.85rem;
-  opacity: 0.8;
-  margin-top: 2px;
-}
-
-.get-btn {
-  padding: 6px 16px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.2);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #eef6ff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.get-btn:hover {
-  background: rgba(255,255,255,0.3);
-  transform: translateY(-1px);
-}
-
-
-/* Page dim upon popup appearance */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: none; /* not usually shown */
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* Top info bar */
-.modal-content {
-  position: relative;
-  width: min(600px, 90%);
-  padding: 30px;
-  border-radius: 16px;
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  background: rgba(20, 40, 80, 0.3);
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
-  color: #eef6ff;
-}
-
-/* Popup 'store' close button */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: #eef6ff;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.close-btn:hover {
-  transform: scale(1.2);
-}
-
-.links {
-  margin-top: 20px;
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.links a {
-  padding: 8px 16px;
-  border-radius: 999px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #eef6ff;
-  text-decoration: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.2s, transform 0.2s;
-  height: 20px;
-}
-
-.links a:hover {
-  background: rgba(255,255,255,0.25);
-  transform: translateY(-2px);
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  background: url("https://i.ibb.co/pjHQPJ1r/site-bg.jpg") no-repeat center center fixed;
-  background-size: cover;
-  font-family: sans-serif;
-  color: #eef6ff;
-}
-
-header {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-  background: rgba(30, 60, 120, 0.25);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  font-weight: bold;
-}
-
-.day-pill {
-  padding: 6px 14px;
-  border-radius: 999px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  font-weight: 600;
-  text-transform: lowercase;
-}
-
-.site-name {
-  margin-top: 1px;
-}
-
-.site-name {
-  margin-left: 12px;
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
-
-main {
-  height: calc(100% - 64px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-/* Center menu box */
-.card {
-  width: min(600px, 90%);
-  padding: 30px;
-  border-radius: 16px;
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  background: rgba(20, 40, 80, 0.3);
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
-  text-align: center;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sawyer A Miller</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <!-- Project 'store' -->
@@ -249,7 +14,7 @@ main {
     <button class="close-btn" id="closeProjects">&times;</button>
     <h2 style="margin-left: 20px;">My Non GitHub Projects</h2>
 
-      <!-- Project A -->
+    <!-- Project A -->
     <div class="project">
       <div class="project-info">
         <div class="project-title">Windows Power Plan Manager</div>
@@ -261,7 +26,7 @@ main {
       </div>
     </div>
 
-      <!-- Project B -->
+    <!-- Project B -->
     <div class="project">
       <div class="project-info">
         <div class="project-title">Julius</div>
@@ -283,9 +48,8 @@ main {
   <div class="modal-content">
     <button class="close-btn" id="closeQR">&times;</button>
     <h2>Scan Me</h2>
-    <img src="https://i.ibb.co/Y4jwz8x5/frame.jpg" 
-         alt="QR Code" 
-         style="display:block;margin:20px auto;max-width:250px;width:100%;border-radius:8px;">
+    <img src="https://i.ibb.co/Y4jwz8x5/frame.jpg" alt="QR Code"
+      style="display:block;margin:20px auto;max-width:250px;width:100%;border-radius:8px;">
   </div>
 </div>
 
@@ -297,79 +61,42 @@ main {
   </header>
   <main>
     <div class="card">
-          <div class="about">
-      <div class="about-left">
-        <!-- Replace with your image -->
-        <img class="small-img" src="https://i.ibb.co/HTKzjyh4/IMG-1841.png" alt="Sawyer A Miller" class="profile-img">
+      <div class="about">
+        <div class="about-left">
+          <!-- Replace with your image -->
+          <img class="small-img profile-img" src="https://i.ibb.co/HTKzjyh4/IMG-1841.png" alt="Sawyer A Miller">
+        </div>
+        <div class="about-right">
+          <h1 class="about-name">Sawyer A Miller</h1>
+          <p class="about-text">
+            I'm a curious software tinkerer who enjoys building personal tools,
+            experimenting with new ideas, and learning as I go.
+            Always exploring, always improving.
+          </p>
+        </div>
+        <div class="links" style="margin-bottom: 10px;">
+          <a href="https://drive.google.com/file/d/15lcMEpa71W5J0-PJIrHjar9HfpqhmL04/view?usp=sharing"
+            target="_blank">My Resume</a>
+          <a href="https://github.com/sawyerthemiller" target="_blank">
+            <img style="position: relative; top: -1px"
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"
+              width="20" height="20"> GitHub
+          </a>
+          <a href="projects.html" target="_blank">
+            <img style="position: relative; top: -1px"
+              src="https://upload.wikimedia.org/wikipedia/de/thumb/0/00/Windows_Vista_Logo.svg/420px-Windows_Vista_Logo.svg.png?20090607103336"
+              alt="Projects" width="20" height="20"> My Projects
+          </a>
+        </div>
       </div>
-      <div class="about-right">
-        <h1 class="about-name">Sawyer A Miller</h1>
-        <p class="about-text">
-          I'm a curious software tinkerer who enjoys building personal tools, 
-          experimenting with new ideas, and learning as I go.  
-          Always exploring, always improving.
-        </p>
-      </div>
-      <div class="links" style="margin-bottom: 10px;">
-        <a href="https://drive.google.com/file/d/15lcMEpa71W5J0-PJIrHjar9HfpqhmL04/view?usp=sharing" target="_blank">My Resume</a>
-        <a href="https://github.com/sawyerthemiller" target="_blank">
-          <img style="position: relative; top: -1px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" 
-          alt="GitHub" width="20" height="20"> GitHub
-        </a>
-        <a href="projects.html" target="_blank">
-          <img style="position: relative; top: -1px" src="https://upload.wikimedia.org/wikipedia/de/thumb/0/00/Windows_Vista_Logo.svg/420px-Windows_Vista_Logo.svg.png?20090607103336" 
-          alt="Projects" width="20" height="20"> My Projects
-        </a>
-      </div>
-    </div>
   </main>
 
-<script>
-  // Day name goes into top right pill
-  const dayName = new Date().toLocaleDateString(undefined, { weekday: 'long' });
-  document.getElementById('dayName').textContent = dayName;
-
-  // Project 'store' logic
-  const projectsLink = document.querySelector('.links a[href="projects.html"]');
-  const modal = document.getElementById('projectsModal');
-  const closeBtn = document.getElementById('closeProjects');
-
-  projectsLink.addEventListener('click', function(e) {
-    e.preventDefault(); // stop going to projects.html like it used to
-    modal.style.display = 'flex';
-  });
-
-  closeBtn.addEventListener('click', function() {
-    modal.style.display = 'none';
-  });
-
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-
-  // QR code modal logic
-  const profileImg = document.querySelector('.small-img');
-  const qrModal = document.getElementById('qrModal');
-  const closeQR = document.getElementById('closeQR');
-
-  profileImg.addEventListener('click', function() {
-    qrModal.style.display = 'flex';
-  });
-
-  closeQR.addEventListener('click', function() {
-    qrModal.style.display = 'none';
-  });
-
-  qrModal.addEventListener('click', function(e) {
-    if (e.target === qrModal) {
-      qrModal.style.display = 'none';
-    }
-  });
-
-</script>
-
-</script>
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" crossorigin="anonymous"></script>
+  <!-- Scripts -->
+  <script src="liquidgl/scripts/html2canvas.min.js"></script>
+  <script src="liquidgl/scripts/liquidGL.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,274 @@
+.project-lang {
+  display: block;
+  /* ensures it sits on its own line */
+  width: 100%;
+  /* makes it take the full project width */
+  margin-top: 3px;
+  /* less spacing so it’s tighter */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  /* smaller than normal text */
+  text-align: center;
+  /* centers under the button */
+  color: #555;
+  /* optional: softer color so it’s not too loud */
+}
+
+.small-img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  /* crop if not exact ratio */
+  border-radius: 8px;
+  /* round the corners, fits the theme a bit better */
+  position: relative;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.small-img:hover {
+  border: 2px solid white;
+  transform: scale(1.05);
+}
+
+/* Grayed out unavailable project */
+.project.unav {
+  opacity: 0.5;
+  pointer-events: none;
+  /* disables clicks inside */
+}
+
+/* Force interactivity, layering, and VISIBILITY for Liquid Glass */
+.card,
+.modal-content {
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 100 !important;
+  opacity: 1 !important;
+  backdrop-filter: blur(4px);
+  /* Restore blue tint overlay */
+  background: rgba(30, 60, 120, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.get-btn.unav {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #bbb;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+.project {
+  display: flex;
+  justify-content: flex-start;
+  /* align children to the left */
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.project:last-child {
+  border-bottom: none;
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* take up all remaining space, pushes actions to the right */
+}
+
+.project-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* center button + language together */
+  margin-left: auto;
+  /* push this block to the right */
+  min-width: 120px;
+  /* ensures consistent alignment across projects */
+}
+
+.project-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.project-sub {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+.get-btn {
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #eef6ff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.get-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+
+/* Page dim upon popup appearance */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  /* not usually shown */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Top info bar */
+.modal-content {
+  position: relative;
+  width: min(600px, 90%);
+  padding: 30px;
+  border-radius: 16px;
+  background: rgba(20, 40, 80, 0.4) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  color: #eef6ff;
+}
+
+/* Popup 'store' close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #eef6ff;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+.links {
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.links a {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #eef6ff;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.2s;
+  height: 20px;
+}
+
+.links a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  /* Lock page scroll */
+}
+
+body {
+  background: url("https://i.ibb.co/pjHQPJ1r/site-bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: sans-serif;
+  color: #eef6ff;
+}
+
+header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: rgba(30, 60, 120, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  z-index: 200;
+  position: relative;
+}
+
+.day-pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  text-transform: lowercase;
+}
+
+.site-name {
+  margin-left: 12px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-top: 1px;
+}
+
+main {
+  height: calc(100% - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Center menu box */
+.card {
+  width: min(600px, 90%);
+  padding: 30px;
+  border-radius: 16px;
+  background: rgba(20, 40, 80, 0.3);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  text-align: center;
+}
+
+/* Force interactivity, layering, and VISIBILITY for Liquid Glass */
+.card,
+.modal-content,
+header {
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 100 !important;
+  opacity: 1 !important;
+  background: rgba(30, 60, 120, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
