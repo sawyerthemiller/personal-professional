@@ -272,3 +272,29 @@ header {
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
 }
+
+/* Liquid Glass Warning Modal */
+.warning-modal {
+  position: fixed;
+  top: 80px;
+  /* Below the 64px header */
+  left: 0;
+  /* We will animate 'x' using GSAP, but let's set initial state in JS or here. 
+     If we use GSAP 'from', we can leave it visible or position it offscreen. 
+     Let's position it off-screen initially to avoid FOUC.
+  */
+  transform: translateX(-120%);
+
+  background: rgba(20, 40, 80, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #eef6ff;
+  padding: 12px 24px;
+  border-radius: 999px;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+}

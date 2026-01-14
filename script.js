@@ -102,3 +102,29 @@ closeQR.addEventListener('click', showProfile);
 qrModal.addEventListener('click', (e) => {
   if (e.target === qrModal) showProfile();
 });
+
+// Liquid Glass Warning Animation
+window.addEventListener("load", () => {
+  const warningModal = document.getElementById("liquidWarningModal");
+
+  // Set initial position: centered horizontally but off-screen to the left
+  gsap.set(warningModal, {
+    left: "50%",
+    xPercent: -50,
+    x: -window.innerWidth // start off-screen left relative to center
+  });
+
+  const tl = gsap.timeline({ delay: 0.5 });
+
+  tl.to(warningModal, {
+    x: 0, // Move to center
+    duration: 1.2,
+    ease: "power3.out"
+  })
+    .to(warningModal, {
+      x: window.innerWidth, // Slide out to the right
+      duration: 1.2,
+      ease: "power3.in",
+      delay: 3 // Stay for 3 seconds
+    });
+});
