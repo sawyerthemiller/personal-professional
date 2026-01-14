@@ -111,7 +111,8 @@ window.addEventListener("load", () => {
   gsap.set(warningModal, {
     left: "50%",
     xPercent: -50,
-    x: -window.innerWidth // start off-screen left relative to center
+    x: -window.innerWidth, // start off-screen left relative to center
+    autoAlpha: 1 // make visible (since CSS hides it)
   });
 
   const tl = gsap.timeline({ delay: 0.5 });

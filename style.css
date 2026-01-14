@@ -216,11 +216,13 @@ header {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   background: rgba(30, 60, 120, 0.5);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   font-weight: bold;
   z-index: 200;
   position: relative;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
 }
 
 .day-pill {
@@ -284,6 +286,7 @@ header {
      Let's position it off-screen initially to avoid FOUC.
   */
   transform: translateX(-120%);
+  visibility: hidden;
 
   background: rgba(20, 40, 80, 0.6);
   backdrop-filter: blur(8px);
