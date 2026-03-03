@@ -1,3 +1,8 @@
+// Register service worker for image caching
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => { });
+}
+
 // Day name goes into top right pill
 const dayName = new Date().toLocaleDateString(undefined, { weekday: 'long' });
 document.getElementById('dayName').textContent = dayName;
