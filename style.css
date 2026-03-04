@@ -228,7 +228,7 @@ header {
 .day-pill {
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
   font-weight: 600;
   text-transform: lowercase;
@@ -281,10 +281,6 @@ header {
   top: 80px;
   /* Below the 64px header */
   left: 0;
-  /* We will animate 'x' using GSAP, but let's set initial state in JS or here. 
-     If we use GSAP 'from', we can leave it visible or position it offscreen. 
-     Let's position it off-screen initially to avoid FOUC.
-  */
   transform: translateX(-120%);
   visibility: hidden;
 
