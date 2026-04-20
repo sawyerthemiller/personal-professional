@@ -1,13 +1,22 @@
 /*
- * liquidGL – Ultra-light glassmorphism for the web
+ * liquidGL – ultra-light glassmorphism for the web
  * -----------------------------------------------------------------------------
  *
  * Author: NaughtyDuk© – https://liquidgl.naughtyduk.com
  * Licence: MIT
  */
 
+/** biome-ignore-all lint/style/useTemplate: <explanation> */
+/** biome-ignore-all lint/complexity/noArguments: <explanation> */
+/** biome-ignore-all lint/complexity/useArrowFunction: <explanation> */
+/** biome-ignore-all lint/complexity/useOptionalChain: <explanation> */
+/** biome-ignore-all lint/suspicious/noPrototypeBuiltins: <explanation> */
+/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
+/** biome-ignore-all lint/suspicious/noGlobalIsNan: <explanation> */
+/** biome-ignore-all lint/suspicious/useIterableCallbackReturn: <explanation> */
+
 (() => {
-  "use strict";
+  
 
   /* --------------------------------------------------
    *  Utilities

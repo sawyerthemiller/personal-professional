@@ -1,4 +1,8 @@
 // Register service worker for image caching
+
+/** biome-ignore-all lint/correctness/noUnusedFunctionParameters: <explanation> */
+/** biome-ignore-all lint/suspicious/useIterableCallbackReturn: <explanation> */
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').catch(() => { });
 }
@@ -12,16 +16,16 @@ const projectsLink = document.querySelector('.links a[href="projects.html"]');
 const modal = document.getElementById('projectsModal');
 const closeBtn = document.getElementById('closeProjects');
 
-projectsLink.addEventListener('click', function (e) {
+projectsLink.addEventListener('click', (e) => {
   e.preventDefault(); // stop going to projects.html like it used to
   modal.style.display = 'flex';
 });
 
-closeBtn.addEventListener('click', function () {
+closeBtn.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
-modal.addEventListener('click', function (e) {
+modal.addEventListener('click', (e) => {
   if (e.target === modal) {
     modal.style.display = 'none';
   }
@@ -32,49 +36,21 @@ const profileImg = document.querySelector('.small-img');
 const qrModal = document.getElementById('qrModal');
 const closeQR = document.getElementById('closeQR');
 
-profileImg.addEventListener('click', function () {
+profileImg.addEventListener('click', () => {
   qrModal.style.display = 'flex';
 });
 
-closeQR.addEventListener('click', function () {
+closeQR.addEventListener('click', () => {
   qrModal.style.display = 'none';
 });
 
-qrModal.addEventListener('click', function (e) {
+qrModal.addEventListener('click', (e) => {
   if (e.target === qrModal) {
     qrModal.style.display = 'none';
   }
 });
 
-// Liquid GL Integration
-// Use 'load' instead of 'DOMContentLoaded' to ensure background images are ready for snapshot
-window.addEventListener("load", () => {
 
-  const commonSettings = {
-    resolution: Math.max(2, window.devicePixelRatio || 2),
-    refraction: 0.20,
-    bevelDepth: 0.020,
-    bevelWidth: 0.020,
-    frost: 0.65,
-    shadow: true,
-    specular: true,
-    tilt: false,
-    reveal: "simple",
-  };
-
-  // Apply to card directly
-  liquidGL(Object.assign({ target: ".card" }, commonSettings));
-
-  // Apply to modal content directly
-  liquidGL(Object.assign({ target: ".modal-content" }, commonSettings));
-});
-
-// Force refresh when modals align or window resizes
-function triggerRefresh() {
-  setTimeout(() => {
-    window.dispatchEvent(new Event('resize'));
-  }, 50);
-}
 
 // Logic to hide profile elements behind modals
 const elementsToHide = document.querySelectorAll('.profile-img, .about-name, .about-text');
@@ -88,12 +64,10 @@ function showProfile() {
 }
 
 projectsLink.addEventListener('click', (e) => {
-  triggerRefresh();
   hideProfile();
 });
 
 profileImg.addEventListener('click', (e) => {
-  triggerRefresh();
   hideProfile();
 });
 
@@ -108,29 +82,65 @@ qrModal.addEventListener('click', (e) => {
   if (e.target === qrModal) showProfile();
 });
 
-// Liquid Glass Warning Animation
-window.addEventListener("load", () => {
-  const warningModal = document.getElementById("liquidWarningModal");
+// Page Navigation
+const navBtns = document.querySelectorAll('.nav-btn');
+const homePage = document.querySelector('main');
+const portfolioPage = document.getElementById('portfolioPage');
 
-  // Set initial position: centered horizontally but off-screen to the left
-  gsap.set(warningModal, {
-    left: "50%",
-    xPercent: -50,
-    x: -window.innerWidth, // start off-screen left relative to center
-    autoAlpha: 1 // make visible (since CSS hides it)
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const page = btn.dataset.page;
+
+    // Update active button
+    navBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (page === 'home') {
+      homePage.style.display = 'flex';
+      portfolioPage.style.display = 'none';
+      document.body.style.overflow = 'hidden';
+    } else if (page === 'portfolio') {
+      homePage.style.display = 'none';
+      portfolioPage.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
+
+// 3D Tilt Effect for cards (home card + post cards, NOT modals)
+document.querySelectorAll('.post-card, .card').forEach(card => {
+  const MAX_TILT = 6; // degrees
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    const rotateY = x * MAX_TILT;
+    const rotateX = -y * MAX_TILT;
+
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(4px)`;
   });
 
-  const tl = gsap.timeline({ delay: 0.5 });
+  card.addEventListener('mouseleave', () => {
+    card.style.transition = 'transform 0.4s ease-out, box-shadow 0.3s ease';
+    card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+    setTimeout(() => {
+      card.style.transition = 'transform 0.15s ease-out, box-shadow 0.3s ease';
+    }, 400);
+  });
+});
 
-  tl.to(warningModal, {
-    x: 0, // Move to center
-    duration: 1.2,
-    ease: "power3.out"
-  })
-    .to(warningModal, {
-      x: window.innerWidth, // Slide out to the right
-      duration: 1.2,
-      ease: "power3.in",
-      delay: 3 // Stay for 3 seconds
-    });
+// Reduced Mode Toggle (accessibility)
+const reducedToggle = document.getElementById('reducedMode');
+
+// Restore saved preference
+if (localStorage.getItem('reducedMode') === 'true') {
+  document.body.classList.add('reduced-mode');
+  reducedToggle.checked = true;
+}
+
+reducedToggle.addEventListener('change', () => {
+  document.body.classList.toggle('reduced-mode', reducedToggle.checked);
+  localStorage.setItem('reducedMode', reducedToggle.checked);
 });

@@ -1,4 +1,8 @@
-<!doctype html>
+
+<!-- biome-ignore-all lint/a11y/useButtonType: <explanation> -->
+<!-- biome-ignore-all lint/a11y/noRedundantAlt: <explanation> -->
+
+  <!doctype html>
 <html lang="en">
 
 <head>
@@ -8,6 +12,8 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
+
+<body>
 
 <!-- Project 'store' -->
 <div id="projectsModal" class="modal">
@@ -54,16 +60,14 @@
   </div>
 </div>
 
-<!-- Liquid Glass Warning Modal -->
-<div id="liquidWarningModal" class="warning-modal">
-  if the liquid glass does not work, refresh
-</div>
 
-
-<body>
   <header>
     <div class="day-pill" id="dayName">Day</div>
     <div class="site-name">you're on millersa.dev</div>
+    <nav class="nav-buttons">
+      <button type="button" class="nav-btn active" id="navHome" data-page="home">Home</button>
+      <button type="button" class="nav-btn" id="navPortfolio" data-page="portfolio">Portfolio</button>
+    </nav>
   </header>
   <main>
     <div class="card">
@@ -95,13 +99,91 @@
           </a>
         </div>
       </div>
+    </div>
   </main>
 
-  <!-- Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" crossorigin="anonymous"></script>
+  <!-- Accessibility toggle -->
+  <div class="a11y-toggle-wrap">
+    <label class="a11y-toggle" for="reducedMode">
+      <input type="checkbox" id="reducedMode">
+      <span class="a11y-slider"></span>
+    </label>
+    <span class="a11y-label">low performance or photo sensitive</span>
+  </div>
+
+  <!-- Portfolio Page -->
+  <div class="page" id="portfolioPage" style="display:none;">
+    <div class="portfolio-container">
+      <div class="portfolio-header-card">
+        <h1 class="portfolio-heading">my portfolio</h1>
+        <p class="portfolio-subtext">a selection of projects and work I've built or contributed to...</p>
+        <p class="portfolio-subtext">not all of my projects are on this page, but this is the culmination of my first semester as a graphic designer, whereas i was previously a software engineer... i enjoy both and will continue to do both but have an eye for design and visual elements</p>
+      </div>
+
+      <!-- About Me Section -->
+      <div class="about-me-section">
+        <div class="about-me-col">
+          <h3 class="about-me-heading">knowledges &amp; softwares</h3>
+          <ul class="about-me-list">
+            <li>Figma</li>
+            <li>Canva</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>Swift and Kotlin</li>
+            <li>Web Development</li>
+          </ul>
+        </div>
+        <div class="about-me-col">
+          <h3 class="about-me-heading">talents</h3>
+          <ul class="about-me-list">
+            <li>Guitar</li>
+            <li>Landscaping</li>
+            <li>Photography</li>
+            <li>Interior Design</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Post 1 -->
+      <article class="post-card">
+        <div class="post-meta">
+          <span class="post-date">18 - 4 - 2026</span>
+          <span class="post-author">Sawyer Miller</span>
+        </div>
+        <div class="post-image-box">
+          <img src="https://i.ibb.co/qYyZVwYb/test.jpg" alt="post image" class="post-image">
+        </div>
+        <h2 class="post-title">MSOE Dining Experience</h2>
+        <p class="post-text">This is a project written for my graphic design class. The goal was to take <a href="https://boardmix.com/app/share/CAE.CPSDiQIgASoQchHcBTZfCaIv4AvmYIzLEjAGQAE/OSYJqN">these interviews and personas</a> turn them into a concept of a working app for our school to fix people's gripes with the current cafeteria expereince.</p>
+        <br>
+        <p class="post-text">This was also a good excercise in pateince and working on things more then you'd have liked. I found out the first time that I focused way too much on the logical side of the 'program' and redid it, this time applying Maslow's Hierarchy of Needs strategically, a concept we've learned about in our 'Pyschology of Design' class.</p>
+        <br>
+        <p class="post-text"><a href="https://www.figma.com/design/iVpfa9upl6IHiwwjGonkoe/USE-AS-WIREFRAME?node-id=84-917&t=qMkyEcwYIWGKjhwE-1">Attempt One</a></p>
+        <p class="post-text"><a href="https://www.figma.com/design/PJD0RPfKa0HeKBCw1lwQAq/Redone-MSOE-Thing-Final?node-id=0-1&t=yxzkFndgTYVRwC5S-1">Attempt Two</a></p>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="post-card">
+        <div class="post-meta">
+          <span class="post-date">18 - 4 - 2026</span>
+          <span class="post-author">Sawyer Miller</span>
+        </div>
+        <div class="post-image-box">
+          <img src="https://i.ibb.co/VhqSRLW/test-b.png" alt="post image" class="post-image">
+        </div>
+        <h2 class="post-title">Creddit - building a better financial future for young adults</h2>
+        <p class="post-text">This was a prototype made for my 'Human Center Design' class. Noticing a worry among ourselves and other peers about the future of the housing and job market, <i>not to mention the economy in general</i>, we decided to create an app that would help young adults learn about personal finance in a fun and social-media like way.</p>
+        <br>
+        <p class="post-text">A cool thing about this project was it was done in a team setting. Each member of the team brought to the table, so to speak, new ideas for features, new findings from research, and perspectives on the project as a whole.</p>
+        <br>
+        <p class="post-text"><a href="https://miro.com/app/board/uXjVG2TkhZk=/?share_link_id=251212644789">Here's our research, personas, and the whole shebang of the behind-the-scenes...</a></p>
+        <p class="post-text"><a href="https://www.figma.com/design/khfgC8G8aB6ej6NoGVbRNF/CREDDIT-App-Figma?node-id=0-1&t=RhhQ7dpg6tim9DZ4-1">Link to Live Figma prototype...</a></p>
+      </article>
+
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="liquidgl/scripts/html2canvas.min.js"></script>
-  <script src="liquidgl/scripts/liquidGL.js"></script>
   <script src="script.js"></script>
 </body>
 
