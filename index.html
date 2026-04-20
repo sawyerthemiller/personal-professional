@@ -67,8 +67,13 @@
     <nav class="nav-buttons">
       <button type="button" class="nav-btn active" id="navHome" data-page="home">Home</button>
       <button type="button" class="nav-btn" id="navPortfolio" data-page="portfolio">Portfolio</button>
+      <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
     </nav>
   </header>
+
+  <!-- Rain effect layer (behind cards/modals, below header). Hidden in reduced mode. -->
+  <canvas id="rainCanvas" aria-hidden="true"></canvas>
+
   <main>
     <div class="card">
       <div class="about">
@@ -112,7 +117,7 @@
   </div>
 
   <!-- Portfolio Page -->
-  <div class="page" id="portfolioPage" style="display:none;">
+  <div class="page page-hidden" id="portfolioPage">
     <div class="portfolio-container">
       <div class="portfolio-header-card">
         <h1 class="portfolio-heading">my portfolio</h1>
@@ -128,7 +133,7 @@
             <li>Figma</li>
             <li>Canva</li>
             <li>Python</li>
-            <li>Java</li>
+            <li>Java and C++</li>
             <li>Swift and Kotlin</li>
             <li>Web Development</li>
           </ul>
@@ -156,7 +161,7 @@
         <h2 class="post-title">MSOE Dining Experience</h2>
         <p class="post-text">This is a project written for my graphic design class. The goal was to take <a href="https://boardmix.com/app/share/CAE.CPSDiQIgASoQchHcBTZfCaIv4AvmYIzLEjAGQAE/OSYJqN">these interviews and personas</a> turn them into a concept of a working app for our school to fix people's gripes with the current cafeteria expereince.</p>
         <br>
-        <p class="post-text">This was also a good excercise in pateince and working on things more then you'd have liked. I found out the first time that I focused way too much on the logical side of the 'program' and redid it, this time applying Maslow's Hierarchy of Needs strategically, a concept we've learned about in our 'Pyschology of Design' class.</p>
+        <p class="post-text">This was also a good excercise in patience and working on things more then you'd have liked. I found out the first time that I focused way too much on the logical side of the 'program' and redid it, this time applying Maslow's Hierarchy of Needs strategically, a concept we've learned about in our 'Pyschology of Design' class.</p>
         <br>
         <p class="post-text"><a href="https://www.figma.com/design/iVpfa9upl6IHiwwjGonkoe/USE-AS-WIREFRAME?node-id=84-917&t=qMkyEcwYIWGKjhwE-1">Attempt One</a></p>
         <p class="post-text"><a href="https://www.figma.com/design/PJD0RPfKa0HeKBCw1lwQAq/Redone-MSOE-Thing-Final?node-id=0-1&t=yxzkFndgTYVRwC5S-1">Attempt Two</a></p>

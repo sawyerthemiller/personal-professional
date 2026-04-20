@@ -1,6 +1,15 @@
 
 /** biome-ignore-all lint/complexity/noImportantStyles: <explanation> */
 
+/* Registering --rim-angle as an <angle> lets it animate via CSS transitions.
+   The glass-edge ::before reads this property for its gradient direction,
+   so the tilted cards can "rotate" the rim highlight as they animate. */
+@property --rim-angle {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 135deg;
+}
+
 .project-lang {
   display: block;
   /* ensures it sits on its own line */
@@ -14,8 +23,7 @@
   /* smaller than normal text */
   text-align: center;
   /* centers under the button */
-  color: #555;
-  /* optional: softer color so it’s not too loud */
+  color: #eef6ff;
 }
 
 .small-img {
@@ -136,6 +144,10 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
   color: #eef6ff;
+  transition: background 0.35s ease,
+              backdrop-filter 0.35s ease,
+              -webkit-backdrop-filter 0.35s ease,
+              box-shadow 0.35s ease;
 }
 
 /* Popup 'store' close button */
@@ -199,6 +211,19 @@ body {
   color: #eef6ff;
 }
 
+/* Rain canvas sits below the header, above the body background.
+   It lives earlier in DOM than <main> / #portfolioPage (both z-index: auto),
+   so cards and modals naturally render above it, while the header
+   (z-index: 200) still covers it. */
+#rainCanvas {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 64px);
+  pointer-events: none;
+}
+
 header {
   height: 64px;
   display: flex;
@@ -214,6 +239,10 @@ header {
   position: relative;
   border-bottom-left-radius: 18px;
   border-bottom-right-radius: 18px;
+  transition: background 0.35s ease,
+              backdrop-filter 0.35s ease,
+              -webkit-backdrop-filter 0.35s ease,
+              box-shadow 0.35s ease;
 }
 
 .day-pill {
@@ -223,6 +252,7 @@ header {
   border: 1px solid rgba(255, 255, 255, 0.3);
   font-weight: 600;
   text-transform: lowercase;
+  transition: background-color 0.35s ease;
 }
 
 .site-name {
@@ -240,6 +270,40 @@ main {
   padding: 20px;
 }
 
+/* Both pages share the same area below the header so they can cross-fade.
+   Key point: main/.page are ALWAYS opacity:1 — we never animate either
+   transform or opacity on the page wrapper. Animating opacity on a
+   parent forces its subtree into a group buffer (opacity < 1 creates a
+   stacking-context-with-its-own-backing), and the cards inside sample
+   that empty buffer as their backdrop, which is why the blur used to
+   disappear during the fade and then pop in at the end. Instead, we
+   fade each glass card individually below. Each card already has its
+   own compositing layer (from backdrop-filter), so animating the card's
+   opacity just tweens that layer's alpha while backdrop-filter stays
+   sampled from the real page the whole time. */
+main,
+.page {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+}
+
+main.page-hidden,
+.page.page-hidden {
+  pointer-events: none;
+}
+
+/* Crossfade the actual glass surfaces instead of the page wrapper. */
+main.page-hidden .card,
+.page.page-hidden .portfolio-header-card,
+.page.page-hidden .about-me-col,
+.page.page-hidden .post-card {
+  opacity: 0;
+}
+
 /* Center menu box */
 .card {
   width: min(600px, 90%);
@@ -251,7 +315,13 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(255, 255, 255, 0.1);
   text-align: center;
-  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  transition: transform 0.15s ease-out,
+              box-shadow 0.35s ease,
+              background 0.35s ease,
+              backdrop-filter 0.35s ease,
+              -webkit-backdrop-filter 0.35s ease,
+              --rim-angle 0.15s ease-out,
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -279,6 +349,7 @@ div.modal-content,
   display: flex;
   gap: 6px;
   margin-left: auto;
+  position: relative;
 }
 
 .nav-btn {
@@ -303,33 +374,47 @@ div.modal-content,
   background: transparent;
 }
 
-.nav-btn.active::after {
-  content: '';
+/* Shared gliding indicator that slides between active nav buttons */
+.nav-indicator {
   position: absolute;
   bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
+  left: 0;
+  width: 0;
   height: 3px;
   border-radius: 999px;
   background: #fff;
   box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.7), 0 0 14px 4px rgba(160, 196, 255, 0.5);
+  transition: left 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+              width 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+  will-change: left, width;
 }
 
 /* Portfolio page */
 .page {
-  height: calc(100% - 64px);
+  /* Override the shared main/.page rule so the portfolio's scroll
+     viewport extends to the very top of the screen. This lets content
+     scroll *behind* the translucent header (picking up its blur/tint)
+     instead of being hard-clipped at y=64px, which felt like it was
+     "cut off too low" below the header. */
+  top: 0;
+  height: 100%;
   overflow-y: auto;
   padding: 0;
   position: relative;
-  background: url("https://i.ibb.co/pjHQPJ1r/site-bg.jpg") no-repeat center center fixed;
-  background-size: cover;
+  /* No own background: body's viewport-fixed background shows through,
+     so the image stays perfectly consistent during the home <-> portfolio
+     crossfade. (A background here would render against .page's own box
+     because the page is transformed, which breaks background-attachment: fixed.) */
 }
 
 .portfolio-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 40px 20px 60px;
+  /* 64px header + 40px breathing room so the first card starts in the
+     same visual spot as before, while the rest can still scroll under
+     the header. */
+  padding: 104px 20px 60px;
   position: relative;
   z-index: 2;
 }
@@ -345,6 +430,11 @@ div.modal-content,
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
   text-align: center;
   margin-bottom: 32px;
+  transition: background 0.35s ease,
+              backdrop-filter 0.35s ease,
+              -webkit-backdrop-filter 0.35s ease,
+              box-shadow 0.35s ease,
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* About Me Section */
@@ -363,6 +453,11 @@ div.modal-content,
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: background 0.35s ease,
+              backdrop-filter 0.35s ease,
+              -webkit-backdrop-filter 0.35s ease,
+              box-shadow 0.35s ease,
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .about-me-heading {
@@ -415,7 +510,13 @@ div.modal-content,
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 2;
-  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  transition: transform 0.15s ease-out,
+              box-shadow 0.35s ease,
+              background 0.35s ease,
+              backdrop-filter 0.35s ease,
+              -webkit-backdrop-filter 0.35s ease,
+              --rim-angle 0.15s ease-out,
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -502,6 +603,66 @@ div.modal-content,
 }
 
 
+/* ─── Glass edge refraction ───
+   A 3px rim around each translucent surface that catches "light" at the
+   corners, simulating the way a real glass edge refracts brighter than
+   the flat middle. Intentionally NOT applied to the header.
+   Technique: a ::before layered on top with two mask layers (border-box
+   and content-box) XOR'd together so only the padding ring is painted. */
+.card,
+.post-card,
+.portfolio-header-card,
+.about-me-col,
+.modal-content {
+  position: relative;
+  /* isolation: isolate gives each glass surface its own stacking context
+     so the ::before's mask compositing can't interfere with the element's
+     own backdrop-filter. Without this, cards inside a transform-promoted
+     ancestor (main / .page) would lose their blur when the ::before was
+     added. */
+  isolation: isolate;
+}
+
+.card::before,
+.post-card::before,
+.portfolio-header-card::before,
+.about-me-col::before,
+.modal-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3px;
+  /* var(--rim-angle) is set by the 3D tilt JS on .card/.post-card so the
+     bright stop of the gradient tracks the corner nearest the cursor.
+     Static surfaces never set the variable and fall back to 135deg. */
+  background: linear-gradient(
+    var(--rim-angle, 135deg),
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.04) 55%,
+    rgba(255, 255, 255, 0.18) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  /* Both prefixed and unprefixed mask so the ring is actually carved out
+     in every engine. Without the unprefixed `mask`, Firefox (and newer
+     Chrome/Safari that prefer the standard) would paint the gradient
+     over the full face of the card and swallow the glass look. */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+          mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+
 /* ─── Accessibility Toggle ─── */
 .a11y-toggle-wrap {
   position: fixed;
@@ -575,6 +736,11 @@ div.modal-content,
 }
 
 /* ─── Reduced Mode Overrides ─── */
+/* We intentionally do NOT override `transition` here so that toggling
+   reduced mode on/off smoothly animates background, backdrop-filter,
+   and box-shadow (the properties each element defines transitions for).
+   `transform: none !important` still keeps the 3D tilt and hover lifts
+   disabled inside reduced mode. */
 body.reduced-mode .card,
 body.reduced-mode header,
 body.reduced-mode .post-card,
@@ -584,7 +750,6 @@ body.reduced-mode .about-me-col {
   -webkit-backdrop-filter: none !important;
   background: rgb(60, 90, 150) !important;
   transform: none !important;
-  transition: none !important;
   box-shadow: none !important;
 }
 
@@ -593,7 +758,6 @@ body.reduced-mode .modal-content {
   -webkit-backdrop-filter: none !important;
   background: rgb(30, 120, 55) !important;
   transform: none !important;
-  transition: none !important;
   box-shadow: none !important;
 }
 
@@ -607,6 +771,30 @@ body.reduced-mode .nav-btn:hover {
   transform: none;
 }
 
+body.reduced-mode .nav-indicator,
+body.reduced-mode main,
+body.reduced-mode .page {
+  transition: none !important;
+}
+
+body.reduced-mode main,
+body.reduced-mode .page {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-indicator,
+  main,
+  .page {
+    transition: none !important;
+  }
+
+  main,
+  .page {
+    transform: none !important;
+  }
+}
+
 body.reduced-mode .get-btn:hover,
 body.reduced-mode .portfolio-link:hover,
 body.reduced-mode .links a:hover {
@@ -618,6 +806,27 @@ body.reduced-mode .day-pill {
   background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
-body.reduced-mode .project-lang {
-  color: #eef6ff !important;
+/* Fade the glass-edge rim out in reduced mode — the surfaces go solid,
+   so there's no glass to refract through. Uses the same 0.35s timing as
+   the background/backdrop-filter transitions so the whole swap feels
+   like one motion. */
+body.reduced-mode .card::before,
+body.reduced-mode .post-card::before,
+body.reduced-mode .portfolio-header-card::before,
+body.reduced-mode .about-me-col::before,
+body.reduced-mode .modal-content::before {
+  opacity: 0;
+}
+
+/* Rain is a decorative animation — hide in reduced / reduced-motion modes.
+   display: none also means the canvas can't be painted into, so the JS
+   animation loop is paused too (see script.js updateRainState). */
+body.reduced-mode #rainCanvas {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #rainCanvas {
+    display: none;
+  }
 }
