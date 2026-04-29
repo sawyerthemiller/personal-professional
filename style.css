@@ -874,3 +874,15 @@ body.reduced-mode #rainCanvas {
     display: none;
   }
 }
+
+/* ─── Copyright Footer ─── */
+.copyright-footer {
+  position: fixed;
+  bottom: 12px;
+  left: 16px;
+  font-size: 0.95rem;
+  color: #ffffff;
+  z-index: 250;
+  pointer-events: none;
+  user-select: none;
+}
