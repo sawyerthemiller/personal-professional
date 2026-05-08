@@ -2,7 +2,8 @@ These are just some files for my personal professional website...
 
 Site uses LLROW (Leopard Liscense for Restricted Original Works)
 
-Meaning that private forks for personal use ONLY are allowed but all code, pictures, and content are NOT allowed for public distribution, modification, or reuse
+Meaning that private forks for personal use ONLY are allowed but all code, pictures, and content are NOT allowed for public distribution, modification, or reuse\
+Excepting the background image may be used with credit but was taken by Sawyer Miller
 
 **Deprecated on this site**\
 ~~Credits for **LiquidGL** [HERE](https://github.com/naughtyduk/liquidGL)~~
