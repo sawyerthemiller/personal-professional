@@ -1,14 +1,14 @@
-const CACHE_NAME = 'millersa-img-cache-v1';
+const CACHE_NAME = 'millersa-img-cache-v2';
 
 const PRECACHE_URLS = [
-    'https://i.ibb.co/pjHQPJ1r/site-bg.jpg',
+    'https://wallpaperaccess.com/full/26023266.jpg',
     'https://i.ibb.co/HTKzjyh4/IMG-1841.png',
     'https://i.ibb.co/Y4jwz8x5/frame.jpg',
-    'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
-    'https://upload.wikimedia.org/wikipedia/de/thumb/0/00/Windows_Vista_Logo.svg/420px-Windows_Vista_Logo.svg.png?20090607103336',
+    'https://i.ibb.co/qYyZVwYb/test.jpg',
+    'https://i.ibb.co/VhqSRLW/test-b.png'
 ];
 
-// On install, pre-cache all the listed images
+// Pre-cache all the listed images
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
@@ -18,7 +18,7 @@ self.addEventListener('install', (event) => {
     self.skipWaiting();
 });
 
-// On activate, clean up any old caches
+// Clean up any old caches
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((keys) => {
@@ -32,11 +32,11 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
-// Cache-first strategy for images, passthrough for everything else
+// Cache-first strategy for images
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
 
-    // Only intercept image requests (by extension or from known image hosts)
+    // Only intercept image requests
     const isImage =
         /\.(jpg|jpeg|png|gif|svg|webp|ico)(\?.*)?$/i.test(url.pathname) ||
         url.hostname === 'i.ibb.co';

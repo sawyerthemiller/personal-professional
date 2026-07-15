@@ -1,49 +1,36 @@
-
 /** biome-ignore-all lint/complexity/noImportantStyles: <explanation> */
 
-/* Registering --rim-angle as an <angle> lets it animate via CSS transitions.
-   The glass-edge ::before reads this property for its gradient direction,
-   so the tilted cards can "rotate" the rim highlight as they animate. */
-@property --rim-angle {
-  syntax: '<angle>';
-  inherits: true;
-  initial-value: 135deg;
+* {
+  overscroll-behavior: none !important;
 }
 
 .project-lang {
   display: block;
-  /* ensures it sits on its own line */
   width: 100%;
-  /* makes it take the full project width */
   margin-top: 3px;
-  /* less spacing so it’s tighter */
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.75rem;
-  /* smaller than normal text */
   text-align: center;
-  /* centers under the button */
-  color: #eef6ff;
+  color: #ff1493;
 }
 
 .small-img {
   width: 150px;
   height: 200px;
   object-fit: cover;
-  /* crop if not exact ratio */
-  border-radius: 8px;
-  /* round the corners, fits the theme a bit better */
+  border-radius: 0;
   position: relative;
-  border: 2px solid transparent;
+  border: 1px solid #ff1493;
   transition: transform 0.3s ease, border 0.3s ease;
 }
 
 .small-img:hover {
-  border: 2px solid white;
-  transform: scale(1.05);
+  background: #ff1493;
+  color: #000;
 }
 
-/* Grayed out unavailable project */
+/* greyed out unavailable project */
 .project.unav {
   opacity: 0.5;
   pointer-events: none;
@@ -53,9 +40,9 @@
 
 
 .get-btn.unav {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #bbb;
+  background: #000;
+  border: 1px solid #550022;
+  color: #550022;
   cursor: not-allowed;
   pointer-events: none;
   transform: none;
@@ -64,10 +51,9 @@
 .project {
   display: flex;
   justify-content: flex-start;
-  /* align children to the left */
   align-items: center;
   padding: 14px 18px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px dashed #ff1493;
 }
 
 .project:last-child {
@@ -78,14 +64,14 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  /* take up all remaining space, pushes actions to the right */
+  /* take up all remaining space then pushes actions to the right */
 }
 
 .project-actions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* center button + language together */
+  /* center button and language together */
   margin-left: auto;
   /* push this block to the right */
   min-width: 120px;
@@ -105,22 +91,23 @@
 
 .get-btn {
   padding: 6px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #eef6ff;
+  border-radius: 0;
+  background: #000;
+  border: 1px solid #ff1493;
+  color: #ff1493;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s, color 0.2s;
+  font-family: monospace;
 }
 
 .get-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  background: #ff1493;
+  color: #000;
 }
 
 
-/* Page dim upon popup appearance */
+/* page dim upon popup appearance */
 .modal {
   position: fixed;
   inset: 0;
@@ -132,25 +119,18 @@
   z-index: 1000;
 }
 
-/* Top info bar */
+/* the top info bar */
 .modal-content {
   position: relative;
   width: min(600px, 90%);
   padding: 30px;
-  border-radius: 16px;
-  background: rgba(20, 40, 80, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-  color: #eef6ff;
-  transition: background 0.35s ease,
-              backdrop-filter 0.35s ease,
-              -webkit-backdrop-filter 0.35s ease,
-              box-shadow 0.35s ease;
+  border-radius: 0;
+  background: #000;
+  border: 1px solid #ff1493;
+  color: #ff1493;
 }
 
-/* Popup 'store' close button */
+/* popup 'store' close button */
 .close-btn {
   position: absolute;
   top: 10px;
@@ -158,13 +138,13 @@
   background: transparent;
   border: none;
   font-size: 1.5rem;
-  color: #eef6ff;
+  color: #ff1493;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
 .close-btn:hover {
-  transform: scale(1.2);
+  background: #ff1493;
+  color: #000;
 }
 
 .links {
@@ -178,173 +158,125 @@
 
 .links a {
   padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #eef6ff;
+  border-radius: 0;
+  background: #000;
+  border: 1px solid #ff1493;
+  color: #ff1493;
   text-decoration: none;
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s, color 0.2s;
   height: 20px;
 }
 
 .links a:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
+  background: #ff1493;
+  color: #000;
 }
 
 html,
 body {
-  height: 100%;
   margin: 0;
-  overflow: hidden;
-  /* Lock page scroll */
+  min-height: 100vh;
+  overscroll-behavior: none !important;
 }
 
 body {
-  background: url("https://i.ibb.co/pjHQPJ1r/site-bg.jpg") no-repeat center center fixed;
-  background-size: cover;
-  font-family: sans-serif;
-  color: #eef6ff;
+  background: #000;
+  font-family: 'Courier New', Courier, monospace;
+  color: #ff1493;
 }
 
-/* Rain canvas sits below the header, above the body background.
-   It lives earlier in DOM than <main> / #portfolioPage (both z-index: auto),
-   so cards and modals naturally render above it, while the header
-   (z-index: 200) still covers it. */
-#rainCanvas {
+body::before {
+  content: "";
   position: fixed;
-  top: 64px;
-  left: 0;
-  width: 100vw;
-  height: calc(100vh - 64px);
-  pointer-events: none;
+  top: -10px; left: -10px; right: -10px; bottom: -10px;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://wallpaperaccess.com/full/26023266.jpg') center/cover no-repeat;
+  filter: blur(4px);
+  z-index: -10;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
+
+
 
 header {
   height: 64px;
   display: flex;
   align-items: center;
   padding: 0 20px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  background: rgba(30, 60, 120, 0.5);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  background: #000;
+  border-bottom: 1px solid #ff1493;
   font-weight: bold;
   z-index: 200;
-  position: relative;
-  border-bottom-left-radius: 18px;
-  border-bottom-right-radius: 18px;
-  transition: background 0.35s ease,
-              backdrop-filter 0.35s ease,
-              -webkit-backdrop-filter 0.35s ease,
-              box-shadow 0.35s ease;
+  position: sticky;
+  top: 0;
 }
 
 .day-pill {
   padding: 6px 14px;
-  border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  background-color: #000 !important;
+  border: 1px solid #ff1493;
   font-weight: 600;
   text-transform: lowercase;
-  transition: background-color 0.35s ease;
 }
 
 .site-name {
   margin-left: 12px;
   font-size: 1.1rem;
-  opacity: 0.9;
   margin-top: 1px;
 }
 
 main {
-  height: calc(100% - 64px);
+  min-height: calc(100vh - 64px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
 }
 
-/* Both pages share the same area below the header so they can cross-fade.
-   Key point: main/.page are ALWAYS opacity:1 — we never animate either
-   transform or opacity on the page wrapper. Animating opacity on a
-   parent forces its subtree into a group buffer (opacity < 1 creates a
-   stacking-context-with-its-own-backing), and the cards inside sample
-   that empty buffer as their backdrop, which is why the blur used to
-   disappear during the fade and then pop in at the end. Instead, we
-   fade each glass card individually below. Each card already has its
-   own compositing layer (from backdrop-filter), so animating the card's
-   opacity just tweens that layer's alpha while backdrop-filter stays
-   sampled from the real page the whole time. */
-main,
-.page {
-  position: absolute;
-  top: 64px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: auto;
-}
-
 main.page-hidden,
 .page.page-hidden {
-  pointer-events: none;
+  display: none !important;
 }
 
-/* Crossfade the actual glass surfaces instead of the page wrapper. */
-main.page-hidden .card,
-.page.page-hidden .portfolio-header-card,
-.page.page-hidden .about-me-col,
-.page.page-hidden .post-card {
-  opacity: 0;
-}
-
-/* Center menu box */
 .card {
   width: min(600px, 90%);
   padding: 30px;
-  border-radius: 16px;
-  background: rgba(30, 60, 120, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  background: #000;
+  border: 1px solid #ff1493;
   text-align: center;
-  transition: transform 0.15s ease-out,
-              box-shadow 0.35s ease,
-              background 0.35s ease,
-              backdrop-filter 0.35s ease,
-              -webkit-backdrop-filter 0.35s ease,
-              --rim-angle 0.15s ease-out,
-              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-  will-change: transform;
+  position: relative;
+  z-index: 1;
+  clip-path: inset(0);
+  overflow: clip;
+  overflow-clip-margin: border-box;
 }
 
 .card:hover {
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
+  background: #050505;
 }
 
 
-/* Button background links */
+/* button background links */
 .links a:nth-child(1) {
-  background-color: rgba(0, 123, 255, 0.15) !important;
+  background-color: #000 !important;
 }
 
 .links a:nth-child(2) {
-  background-color: rgba(220, 53, 69, 0.15) !important;
+  background-color: #000 !important;
 }
 
 div.modal-content,
 .links a:nth-child(3) {
-  background: rgba(40, 167, 69, 0.15) !important;
+  background: #000 !important;
 }
-/* Navigation buttons */
+/* navigation buttons */
 .nav-buttons {
   display: flex;
   gap: 6px;
@@ -354,90 +286,69 @@ div.modal-content,
 
 .nav-btn {
   padding: 6px 18px;
-  border-radius: 999px;
+  border-radius: 0;
   background: transparent;
-  border: none;
-  color: #eef6ff;
+  border: 1px solid transparent;
+  color: #ff1493;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background 0.25s, transform 0.2s;
+  font-family: monospace;
   position: relative;
+  z-index: 1;
+  transition: color 0.25s;
 }
 
 .nav-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
+  color: #000;
+  background: #ff1493;
 }
 
 .nav-btn.active {
-  background: transparent;
+  color: #000;
+  background: transparent; /* the indicator gives it background */
 }
 
-/* Shared gliding indicator that slides between active nav buttons */
 .nav-indicator {
   position: absolute;
-  bottom: -6px;
+  bottom: 0;
   left: 0;
-  width: 0;
-  height: 3px;
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.7), 0 0 14px 4px rgba(160, 196, 255, 0.5);
-  transition: left 0.45s cubic-bezier(0.65, 0, 0.35, 1),
-              width 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  height: 100%;
+  width: 1px;
+  background: #ff1493;
+  transform-origin: left;
+  transition: transform 0.25s ease-out;
   pointer-events: none;
-  will-change: left, width;
+  z-index: 0;
+  will-change: transform;
 }
 
-/* Portfolio page */
+
+
+/* portfolio page */
 .page {
-  /* Override the shared main/.page rule so the portfolio's scroll
-     viewport extends to the very top of the screen. This lets content
-     scroll *behind* the translucent header (picking up its blur/tint)
-     instead of being hard-clipped at y=64px, which felt like it was
-     "cut off too low" below the header. */
-  top: 0;
-  height: 100%;
-  overflow-y: auto;
   padding: 0;
-  position: relative;
-  /* No own background: body's viewport-fixed background shows through,
-     so the image stays perfectly consistent during the home <-> portfolio
-     crossfade. (A background here would render against .page's own box
-     because the page is transformed, which breaks background-attachment: fixed.) */
 }
 
 .portfolio-container {
   max-width: 900px;
   margin: 0 auto;
-  /* 64px header + 40px breathing room so the first card starts in the
-     same visual spot as before, while the rest can still scroll under
-     the header. */
-  padding: 104px 20px 60px;
+  padding: 40px 20px 80px;
   position: relative;
   z-index: 2;
 }
 
-/* Glass card for portfolio header */
+/* card for portfolio header */
 .portfolio-header-card {
-  background: rgba(30, 60, 120, 0.4);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
+  background: #000;
+  border: 1px solid #ff1493;
+  border-radius: 0;
   padding: 30px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
   text-align: center;
   margin-bottom: 32px;
-  transition: background 0.35s ease,
-              backdrop-filter 0.35s ease,
-              -webkit-backdrop-filter 0.35s ease,
-              box-shadow 0.35s ease,
-              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* About Me Section */
+/* about me section */
 .about-me-section {
   display: flex;
   gap: 20px;
@@ -446,18 +357,10 @@ div.modal-content,
 
 .about-me-col {
   flex: 1;
-  background: rgba(30, 60, 120, 0.4);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
+  background: #000;
+  border: 1px solid #ff1493;
+  border-radius: 0;
   padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: background 0.35s ease,
-              backdrop-filter 0.35s ease,
-              -webkit-backdrop-filter 0.35s ease,
-              box-shadow 0.35s ease,
-              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .about-me-heading {
@@ -498,31 +401,26 @@ div.modal-content,
   }
 }
 
-/* Post cards */
+/* post cards */
 .post-card {
-  background: rgba(30, 60, 120, 0.4);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
+  background: #000;
+  border: 1px solid #ff1493;
+  border-radius: 0;
   padding: 24px;
   margin-bottom: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 2;
-  transition: transform 0.15s ease-out,
-              box-shadow 0.35s ease,
-              background 0.35s ease,
-              backdrop-filter 0.35s ease,
-              -webkit-backdrop-filter 0.35s ease,
-              --rim-angle 0.15s ease-out,
-              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-  will-change: transform;
+  clip-path: inset(0);
+  overflow: clip;
+  overflow-clip-margin: border-box;
+}
+
+.post-card:last-child {
+  margin-bottom: 0;
 }
 
 .post-card:hover {
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+  background: #050505;
 }
 
 .post-meta {
@@ -546,10 +444,10 @@ div.modal-content,
 .post-image-box {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000;
+  border: 1px solid #ff1493;
   margin-bottom: 16px;
 }
 
@@ -574,37 +472,37 @@ div.modal-content,
 }
 
 .post-text a {
-  color: rgb(80, 200, 110);
+  color: #ff1493;
   text-decoration: underline;
-  text-decoration-color: rgba(40, 167, 69, 0.4);
+  text-decoration-color: #ff1493;
   text-underline-offset: 3px;
-  transition: color 0.2s, text-decoration-color 0.2s;
+  transition: color 0.2s, background 0.2s;
 }
 
 .post-text a:hover {
-  color: rgb(110, 220, 140);
-  text-decoration-color: rgba(40, 167, 69, 0.8);
+  color: #000;
+  background: #ff1493;
 }
 
-/* Problem / Role / Process / Outcome details grid */
+/* problem / role / process / outcome details vertically stacked */
 .post-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   margin: 20px 0 16px;
 }
 
 .detail-item {
   padding: 14px 16px;
-  border-left: 3px solid rgba(160, 196, 255, 0.45);
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 0 10px 10px 0;
+  border-left: 3px solid #ff1493;
+  background: #000;
+  border-radius: 0;
   transition: border-color 0.25s ease, background 0.25s ease;
 }
 
 .detail-item:hover {
-  border-color: rgba(160, 196, 255, 0.75);
-  background: rgba(255, 255, 255, 0.07);
+  border-color: #ff1493;
+  background: #050505;
 }
 
 .detail-label {
@@ -624,20 +522,12 @@ div.modal-content,
   margin: 0;
 }
 
-@media (max-width: 600px) {
-  .post-details {
-    grid-template-columns: 1fr;
-  }
-}
 
 .portfolio-heading {
   font-size: 2.2rem;
   font-weight: 700;
   margin: 0 0 8px;
-  background: linear-gradient(135deg, #eef6ff 0%, #a0c4ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ff1493;
 }
 
 .portfolio-subtext {
@@ -647,235 +537,8 @@ div.modal-content,
 }
 
 
-/* ─── Glass edge refraction ───
-   A 3px rim around each translucent surface that catches "light" at the
-   corners, simulating the way a real glass edge refracts brighter than
-   the flat middle. Intentionally NOT applied to the header.
-   Technique: a ::before layered on top with two mask layers (border-box
-   and content-box) XOR'd together so only the padding ring is painted. */
-.card,
-.post-card,
-.portfolio-header-card,
-.about-me-col,
-.modal-content {
-  position: relative;
-  /* isolation: isolate gives each glass surface its own stacking context
-     so the ::before's mask compositing can't interfere with the element's
-     own backdrop-filter. Without this, cards inside a transform-promoted
-     ancestor (main / .page) would lose their blur when the ::before was
-     added. */
-  isolation: isolate;
-}
 
-.card::before,
-.post-card::before,
-.portfolio-header-card::before,
-.about-me-col::before,
-.modal-content::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 3px;
-  /* var(--rim-angle) is set by the 3D tilt JS on .card/.post-card so the
-     bright stop of the gradient tracks the corner nearest the cursor.
-     Static surfaces never set the variable and fall back to 135deg. */
-  background: linear-gradient(
-    var(--rim-angle, 135deg),
-    rgba(255, 255, 255, 0.55) 0%,
-    rgba(255, 255, 255, 0.15) 20%,
-    rgba(255, 255, 255, 0.04) 45%,
-    rgba(255, 255, 255, 0.04) 55%,
-    rgba(255, 255, 255, 0.18) 80%,
-    rgba(255, 255, 255, 0.45) 100%
-  );
-  /* Both prefixed and unprefixed mask so the ring is actually carved out
-     in every engine. Without the unprefixed `mask`, Firefox (and newer
-     Chrome/Safari that prefer the standard) would paint the gradient
-     over the full face of the card and swallow the glass look. */
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-          mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.35s ease;
-}
-
-
-/* ─── Accessibility Toggle ─── */
-.a11y-toggle-wrap {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 300;
-  background: rgba(80, 80, 90, 0.85);
-  padding: 10px 20px 14px;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  opacity: 0.85;
-  transition: opacity 0.3s;
-}
-
-.a11y-toggle-wrap:hover {
-  opacity: 1;
-}
-
-.a11y-label {
-  font-size: 0.85rem;
-  color: #eef6ff;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.a11y-toggle {
-  position: relative;
-  width: 40px;
-  height: 22px;
-  display: inline-block;
-}
-
-.a11y-toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.a11y-slider {
-  position: absolute;
-  cursor: pointer;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  transition: background 0.3s;
-}
-
-.a11y-slider::before {
-  content: '';
-  position: absolute;
-  height: 16px;
-  width: 16px;
-  left: 2px;
-  bottom: 2px;
-  background: #eef6ff;
-  border-radius: 50%;
-  transition: transform 0.3s;
-}
-
-.a11y-toggle input:checked + .a11y-slider {
-  background: rgba(80, 200, 110, 0.5);
-}
-
-.a11y-toggle input:checked + .a11y-slider::before {
-  transform: translateX(18px);
-}
-
-/* ─── Reduced Mode Overrides ─── */
-/* We intentionally do NOT override `transition` here so that toggling
-   reduced mode on/off smoothly animates background, backdrop-filter,
-   and box-shadow (the properties each element defines transitions for).
-   `transform: none !important` still keeps the 3D tilt and hover lifts
-   disabled inside reduced mode. */
-body.reduced-mode .card,
-body.reduced-mode header,
-body.reduced-mode .post-card,
-body.reduced-mode .portfolio-header-card,
-body.reduced-mode .about-me-col {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  background: rgb(60, 90, 150) !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-body.reduced-mode .modal-content {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  background: rgb(30, 120, 55) !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-body.reduced-mode .card:hover,
-body.reduced-mode .post-card:hover {
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-body.reduced-mode .nav-btn:hover {
-  transform: none;
-}
-
-body.reduced-mode .nav-indicator,
-body.reduced-mode main,
-body.reduced-mode .page {
-  transition: none !important;
-}
-
-body.reduced-mode main,
-body.reduced-mode .page {
-  transform: none !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nav-indicator,
-  main,
-  .page {
-    transition: none !important;
-  }
-
-  main,
-  .page {
-    transform: none !important;
-  }
-}
-
-body.reduced-mode .get-btn:hover,
-body.reduced-mode .portfolio-link:hover,
-body.reduced-mode .links a:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-body.reduced-mode .day-pill {
-  background-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-/* Fade the glass-edge rim out in reduced mode — the surfaces go solid,
-   so there's no glass to refract through. Uses the same 0.35s timing as
-   the background/backdrop-filter transitions so the whole swap feels
-   like one motion. */
-body.reduced-mode .card::before,
-body.reduced-mode .post-card::before,
-body.reduced-mode .portfolio-header-card::before,
-body.reduced-mode .about-me-col::before,
-body.reduced-mode .modal-content::before {
-  opacity: 0;
-}
-
-/* Rain is a decorative animation — hide in reduced / reduced-motion modes.
-   display: none also means the canvas can't be painted into, so the JS
-   animation loop is paused too (see script.js updateRainState). */
-body.reduced-mode #rainCanvas {
-  display: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #rainCanvas {
-    display: none;
-  }
-}
-
-/* ─── Copyright Footer ─── */
+/* ─── copyright footer ─── */
 .copyright-footer {
   position: fixed;
   bottom: 12px;
@@ -885,4 +548,46 @@ body.reduced-mode #rainCanvas {
   z-index: 250;
   pointer-events: none;
   user-select: none;
+}
+
+/* ─── laser border animation on hover ─── */
+.card:hover, .post-card:hover {
+  border-color: transparent; /* hides static border to reveal laser */
+}
+
+.card::before, .post-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: conic-gradient(transparent 250deg, #ff1493 360deg);
+  animation: laser-spin 2s linear infinite;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.card:hover::before, .post-card:hover::before {
+  opacity: 1;
+}
+
+.card::after, .post-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: -1;
+  pointer-events: none;
+  transition: background 0.3s;
+}
+
+.card:hover::after, .post-card:hover::after {
+  background: #050505;
+}
+
+@keyframes laser-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
