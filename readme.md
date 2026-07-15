@@ -1,11 +1,6 @@
 These are just some files for my personal professional website...
 
-Site uses LLROW (Leopard Liscense for Restricted Original Works)
+**Liquid GL deprecated on this site**
 
-Meaning that private forks for personal use ONLY are allowed but all code, pictures, and content are NOT allowed for public distribution, modification, or reuse\
-Excepting the background image may be used with credit but was taken by Sawyer Miller
 
-**Deprecated on this site**\
-~~Credits for **LiquidGL** [HERE](https://github.com/naughtyduk/liquidGL)~~
-
-![md-warning-image](https://y.yarn.co/affd17d0-d699-43c5-8476-824cef333174_text.gif)
+![md-warning-image](http://leopardindustries.net/warn.gif)
