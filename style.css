@@ -189,9 +189,6 @@ body {
   color: #ff1493;
 }
 
-body.home-active {
-  overflow: hidden;
-}
 
 body::before {
   content: "";
