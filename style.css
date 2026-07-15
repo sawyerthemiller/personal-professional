@@ -99,7 +99,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
-  font-family: monospace;
+  font-family: "Arial Rounded MT Bold";
 }
 
 .get-btn:hover {
@@ -151,21 +151,23 @@
 .links {
   margin-top: 20px;
   display: flex;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
 }
 
 .links a {
+  flex: 1;
+  justify-content: center;
   padding: 12px 20px;
   border-radius: 0;
   background: #000;
   border: 1px solid #ff1493;
   color: #ff1493;
   text-decoration: none;
-  font-weight: 600;
-  display: flex;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   transition: background 0.2s, color 0.2s;
@@ -173,7 +175,8 @@
 
 .links a:hover {
   background: #ff1493;
-  color: #000;
+  color: #a0c4ff;
+  border-color: #a0c4ff;
 }
 
 html,
@@ -185,7 +188,7 @@ body {
 
 body {
   background: #000;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Arial Rounded MT Bold";
   color: #ff1493;
 }
 
@@ -250,13 +253,11 @@ main.page-hidden,
   padding: 30px;
   border-radius: 0;
   background: #000;
-  border: 1px solid #ff1493;
+  outline: 1px solid #ff1493;
+  outline-offset: 0;
   text-align: center;
   position: relative;
   z-index: 1;
-  clip-path: inset(0);
-  overflow: clip;
-  overflow-clip-margin: border-box;
 }
 
 .card:hover {
@@ -356,7 +357,7 @@ div.modal-content,
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
-  font-family: monospace;
+  font-family: "Arial Rounded MT Bold";
   position: relative;
   z-index: 1;
   transition: color 0.25s;
@@ -475,15 +476,14 @@ div.modal-content,
 /* post cards */
 .post-card {
   background: #000;
-  border: 1px solid #ff1493;
+  outline: 1px solid #ff1493;
+  outline-offset: 0;
   border-radius: 0;
   padding: 24px;
   margin-bottom: 24px;
   position: relative;
-  z-index: 2;
-  clip-path: inset(0);
-  overflow: clip;
-  overflow-clip-margin: border-box;
+  z-index: 1;
+  text-align: left;
 }
 
 .post-card:last-child {
@@ -497,6 +497,7 @@ div.modal-content,
 .post-meta {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2px;
   margin-bottom: 16px;
 }
@@ -515,10 +516,10 @@ div.modal-content,
 .post-image-box {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 0;
+  border-radius: 8px;
   overflow: hidden;
   background: #000;
-  border: 1px solid #ff1493;
+  border: 1.5px solid #ff1493;
   margin-bottom: 16px;
 }
 
@@ -553,6 +554,34 @@ div.modal-content,
 .post-text a:hover {
   color: #000;
   background: #ff1493;
+}
+
+/* action links at bottom of posts */
+.post-action-link {
+  display: inline-block;
+  line-height: 20px;
+  position: relative;
+  background: #ff1493;
+  color: #000 !important;
+  padding: 6px 28px 6px 12px;
+  height: 32px;
+  margin-bottom: 12px;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: '...';
+  max-width: 100%;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+}
+
+.post-action-link:hover {
+  opacity: 0.8;
+  color: #000 !important;
+  background: #ff1493 !important;
 }
 
 /* problem / role / process / outcome details vertically stacked */
@@ -621,46 +650,23 @@ div.modal-content,
   user-select: none;
 }
 
-/* ─── laser border animation on hover ─── */
+/* ─── border blink animation on hover ─── */
+.card, .post-card {
+  transition: background 0.3s ease;
+}
+
 .card:hover, .post-card:hover {
-  border-color: transparent; /* hides static border to reveal laser */
+  animation: border-blink 1.6s ease-in-out infinite;
 }
 
-.card::before, .post-card::before {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
-  background: conic-gradient(transparent 250deg, #ff1493 360deg);
-  animation: laser-spin 2s linear infinite;
-  z-index: -2;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  will-change: transform;
+@keyframes border-blink {
+  50% { outline-color: transparent; }
 }
 
-.card:hover::before, .post-card:hover::before {
-  opacity: 1;
-}
-
-.card::after, .post-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #000;
-  z-index: -1;
-  pointer-events: none;
-  transition: background 0.3s;
-}
-
-.card:hover::after, .post-card:hover::after {
-  background: #050505;
-}
-
-@keyframes laser-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@media (prefers-reduced-motion: reduce) {
+  .card:hover, .post-card:hover {
+    animation: none;
+  }
 }
 
 @media (max-width: 650px) {
