@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/complexity/noImportantStyles: <explanation> */
 
 * {
+  box-sizing: border-box;
   overscroll-behavior: none !important;
 }
 
@@ -157,7 +158,7 @@
 }
 
 .links a {
-  padding: 8px 16px;
+  padding: 12px 20px;
   border-radius: 0;
   background: #000;
   border: 1px solid #ff1493;
@@ -168,7 +169,6 @@
   align-items: center;
   gap: 8px;
   transition: background 0.2s, color 0.2s;
-  height: 20px;
 }
 
 .links a:hover {
@@ -187,6 +187,10 @@ body {
   background: #000;
   font-family: 'Courier New', Courier, monospace;
   color: #ff1493;
+}
+
+body.home-active {
+  overflow: hidden;
 }
 
 body::before {
@@ -284,6 +288,68 @@ div.modal-content,
   position: relative;
 }
 
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid #ff1493;
+  color: #ff1493;
+  font-size: 1.5rem;
+  padding: 2px 12px 6px 12px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.hamburger-btn:hover {
+  background: #ff1493;
+  color: #000;
+}
+
+@media (max-width: 650px) {
+  .hamburger-btn {
+    display: block;
+  }
+
+  .nav-buttons {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background: #000;
+    border-bottom: 1px solid #ff1493;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nav-buttons.show {
+    display: flex;
+  }
+
+  .nav-indicator {
+    display: none !important;
+  }
+
+  .nav-btn {
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+  }
+
+  .nav-btn.active {
+    color: #ff1493 !important;
+    background: transparent;
+  }
+
+  .nav-btn.active::before {
+    content: "> ";
+  }
+
+  .nav-btn.active::after {
+    content: " <";
+  }
+
+}
+
 .nav-btn {
   padding: 6px 18px;
   border-radius: 0;
@@ -297,6 +363,14 @@ div.modal-content,
   position: relative;
   z-index: 1;
   transition: color 0.25s;
+}
+
+.nav-btn::before {
+  content: "[ ";
+}
+
+.nav-btn::after {
+  content: " ]";
 }
 
 .nav-btn:hover {
@@ -531,7 +605,7 @@ div.modal-content,
 }
 
 .portfolio-subtext {
-  font-size: 1.05rem;
+  font-size: 0.9rem;
   opacity: 0.75;
   margin: 0 0 32px;
 }
@@ -590,4 +664,17 @@ div.modal-content,
 @keyframes laser-spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 650px) {
+  .copyright-footer {
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: auto;
+    width: 100%;
+    text-align: center;
+    padding: 12px 0 0 0;
+    z-index: 10;
+  }
 }

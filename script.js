@@ -88,6 +88,14 @@ const navButtonsContainer = document.querySelector('.nav-buttons');
 const navIndicator = document.getElementById('navIndicator');
 const homePage = document.querySelector('main');
 const portfolioPage = document.getElementById('portfolioPage');
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const navButtons = document.getElementById('navButtons');
+
+if (hamburgerBtn) {
+  hamburgerBtn.addEventListener('click', () => {
+    navButtons.classList.toggle('show');
+  });
+}
 
 // Glide the selection box to sit under/over a given nav button.
 function positionIndicator(btn, animate = true) {
@@ -136,6 +144,12 @@ function switchToPage(page) {
   to.classList.remove('page-hidden');
 
   currentPage = page;
+
+  if (page === 'home') {
+    document.body.classList.add('home-active');
+  } else {
+    document.body.classList.remove('home-active');
+  }
 }
 
 navBtns.forEach(btn => {
@@ -144,6 +158,10 @@ navBtns.forEach(btn => {
 
     navBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+
+    if (navButtons) {
+      navButtons.classList.remove('show');
+    }
 
     positionIndicator(btn, true);
     switchToPage(page);
